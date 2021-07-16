@@ -1,0 +1,8 @@
+FROM python:3.8
+
+RUN pip install mlflow==1.14.1 boto3 gcsfs psycopg2-binary google-cloud-storage
+
+COPY scripts/tracking_entrypoint.sh /tracking_entrypoint.sh
+
+ENTRYPOINT [ "/bin/bash", "/tracking_entrypoint.sh" ]
+

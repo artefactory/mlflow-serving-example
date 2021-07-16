@@ -1,0 +1,11 @@
+FROM python:3.8
+
+RUN pip install mlflow==1.14.1 google-cloud-storage
+
+RUN pip install xgboost
+
+COPY scripts/serving_entrypoint.sh /serving_entrypoint.sh
+
+ENTRYPOINT [ "/bin/bash", "/serving_entrypoint.sh" ]
+
+

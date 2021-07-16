@@ -1,0 +1,91 @@
+kind: ReplicationController
+apiVersion: v1
+metadata:
+  name: locust-master
+  labels:
+    name: locust
+    role: master
+spec:
+  replicas: 1
+  selector:
+    name: locust
+    role: master
+  template:
+    metadata:
+      labels:
+        name: locust
+        role: master
+    spec:
+      containers:
+        - name: locust
+          image: eu.gcr.io/mlflow-on-k8s/repo/locust-tasks:v1.20
+          env:
+            - name: LOCUST_MODE
+              value: master
+            - name: TARGET_HOST
+              value: 'http://35.189.205.241:8082'
+          ports:
+            - name: loc-master-web
+              containerPort: 8089
+              protocol: TCP
+            - name: loc-master-p1
+              containerPort: 5557
+              protocol: TCP
+            - name: loc-master-p2
+              containerPort: 5558
+              protocol: TCP
+---
+kind: ReplicationController
+apiVersion: v1
+metadata:
+  name: locust-worker
+  labels:
+    name: locust
+    role: worker
+spec:
+  replicas: 30
+  selector:
+    name: locust
+    role: worker
+  template:
+    metadata:
+      labels:
+        name: locust
+        role: worker
+    spec:
+      containers:
+        - name: locust
+          image: eu.gcr.io/mlflow-on-k8s/repo/locust-tasks:v1.20
+          env:
+            - name: LOCUST_MODE
+              value: worker
+            - name: LOCUST_MASTER
+              value: locust-master
+            - name: TARGET_HOST
+              value: 'http://35.189.205.241:8082'
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: locust-master
+  labels:
+    name: locust
+    role: master
+spec:
+  ports:
+    - port: 8089
+      targetPort: loc-master-web
+      protocol: TCP
+      name: loc-master-web
+    - port: 5557
+      targetPort: loc-master-p1
+      protocol: TCP
+      name: loc-master-p1
+    - port: 5558
+      targetPort: loc-master-p2
+      protocol: TCP
+      name: loc-master-p2
+  selector:
+    name: locust
+    role: master
+  type: LoadBalancer
