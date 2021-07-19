@@ -18,12 +18,12 @@ spec:
     spec:
       containers:
         - name: locust
-          image: eu.gcr.io/mlflow-on-k8s/repo/locust-tasks:v1.20
+          image: YOUR_GCR_PATH/locust-tasks:v1
           env:
             - name: LOCUST_MODE
               value: master
             - name: TARGET_HOST
-              value: 'http://35.189.205.241:8082'
+              value: 'http://SERVING_IP:SERVING_PORT'
           ports:
             - name: loc-master-web
               containerPort: 8089
@@ -55,14 +55,14 @@ spec:
     spec:
       containers:
         - name: locust
-          image: eu.gcr.io/mlflow-on-k8s/repo/locust-tasks:v1.20
+          image: YOUR_GCR_PATH/locust-tasks:v1
           env:
             - name: LOCUST_MODE
               value: worker
             - name: LOCUST_MASTER
               value: locust-master
             - name: TARGET_HOST
-              value: 'http://35.189.205.241:8082'
+              value: 'http://SERVING_IP:SERVING_PORT'
 ---
 kind: Service
 apiVersion: v1
