@@ -18,12 +18,12 @@ spec:
     spec:
       containers:
         - name: locust
-          image: YOUR_GCR_PATH/locust-tasks:v1
+          image: GCR_REPO/locust-tasks:v1 # Change here
           env:
             - name: LOCUST_MODE
               value: master
             - name: TARGET_HOST
-              value: 'http://SERVING_IP:SERVING_PORT'
+              value: 'http://SERVING_IP:SERVING_PORT' # Change here
           ports:
             - name: loc-master-web
               containerPort: 8089
@@ -55,14 +55,14 @@ spec:
     spec:
       containers:
         - name: locust
-          image: YOUR_GCR_PATH/locust-tasks:v1
+          image: GCR_REPO/locust-tasks:v1 # Change here
           env:
             - name: LOCUST_MODE
               value: worker
             - name: LOCUST_MASTER
               value: locust-master
             - name: TARGET_HOST
-              value: 'http://SERVING_IP:SERVING_PORT'
+              value: 'http://SERVING_IP:SERVING_PORT' # Change here
 ---
 kind: Service
 apiVersion: v1
