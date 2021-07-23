@@ -25,7 +25,7 @@ import pandas as pd
 class MetricsTaskSet(TaskSet):
 
     def on_start(self):
-        data_path = 'https://raw.githubusercontent.com/amesar/mlflow-examples/master/data/train/wine-quality-white.csv'
+        data_path = 'https://raw.githubusercontent.com/kaislar/mlflow-serving-example/main/notebooks/wine-quality-white.csv'
         self.test_data = pd.read_csv(data_path).drop(columns='quality')
 
     @task()
