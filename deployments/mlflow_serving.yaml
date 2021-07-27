@@ -18,10 +18,10 @@ spec:
     spec:
       containers:
         - name: mlflow-serving
-          image: eu.gcr.io/mlflow-on-k8s/repo/mlflow_serving:v1
+          image: GCR_REPO/mlflow_serving:v1 #change here
           env:
             - name: MODEL_URI
-              value: "gs://mlflow_gke/artifacts/0/3109a842cebe40f09bd19b6046519263/artifacts/xgboost-model"
+              value: "gs://../artifacts/../../artifacts/.." #change here
             - name: SERVING_PORT
               value: "8082"
             - name: GOOGLE_APPLICATION_CREDENTIALS
