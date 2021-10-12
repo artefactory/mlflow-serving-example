@@ -6,7 +6,7 @@ import pandas as pd
 class MetricsTaskSet(TaskSet):
 
     def on_start(self):
-        data_path = 'https://raw.githubusercontent.com/artefactory-fr/mlflow-serving-example/main/notebooks/wine-quality-white.csv'
+        data_path = 'https://raw.githubusercontent.com/artefactory-global/mlflow-serving-example/main/notebooks/wine-quality-white.csv'
         self.test_data = pd.read_csv(data_path).drop(columns='quality')
 
     @task()
